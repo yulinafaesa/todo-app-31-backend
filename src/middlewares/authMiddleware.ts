@@ -1,8 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 export const verifyToken = (req: Request, res: Response, next: NextFunction): void => {
     const authHeader = req.headers['authorization'];
@@ -18,6 +15,6 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction): vo
         res.locals.userId = decoded.id;
         next();
     } catch (error) {
-        res.status(403).json({ success: false, message: 'Sesi tidak valid atau kedaluwarsa!' });
+        res.status(401).json({ success: false, message: 'Sesi tidak valid atau kedaluwarsa!' }); // sebelumnya 403
     }
 };
