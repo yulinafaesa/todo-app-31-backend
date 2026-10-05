@@ -66,7 +66,8 @@ export const createTodo = async (req: Request, res: Response): Promise<void> => 
         const newId = await TodoModel.create(userId, payload.task);
         const data: TodoResponse = { id: newId, todo: payload.task, completed: false };
         sendSuccess(res, 'Tugas berhasil ditambahkan!', data, 201);
-    } catch {
+    } catch (error) {
+        console.error('Error in createTodo:', error);
         sendError(res, 'Gagal menambahkan tugas.', 500);
     }
 };
@@ -86,7 +87,8 @@ export const updateTodo = async (req: Request, res: Response): Promise<void> => 
         }
 
         sendSuccess(res, 'Tugas berhasil diperbarui!');
-    } catch {
+    } catch (error) {
+        console.error('Error in updateTodo:', error);
         sendError(res, 'Gagal memperbarui tugas.', 500);
     }
 };
@@ -103,7 +105,8 @@ export const deleteTodo = async (req: Request, res: Response): Promise<void> => 
         }
 
         sendSuccess(res, 'Tugas berhasil dihapus!');
-    } catch {
+    } catch (error) {
+        console.error('Error in deleteTodo:', error);
         sendError(res, 'Gagal menghapus tugas.', 500);
     }
 };
